@@ -1,10 +1,12 @@
-from dagster import Definitions, load_assets_from_modules
+from dagster import Definitions, load_assets_from_modules, load_assets_from_package_module
 
 # from dagster_learn import assets  # noqa: TID252
-from dagster_learn.assets.location_assets import location_assets
-from dagster_learn.assets.weather_assets import weather_assets
+from .assets import location_assets, weather_assets
 
-all_assets = load_assets_from_modules([location_assets, weather_assets])
+locations = load_assets_from_package_module(location_assets, group_name="locations")
+weather = load_assets_from_package_module(weather_assets, group_name="weather")
+
+all_assets = [*locations, *weather]
 
 defs = Definitions(
     assets=all_assets,

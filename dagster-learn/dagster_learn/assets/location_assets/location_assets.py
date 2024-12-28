@@ -5,7 +5,7 @@ import requests
 import os
 
 
-@asset(group_name='locations')
+@asset
 def get_locations(context: AssetExecutionContext) -> DataFrame:
     '''
     Get data from the list and return city long and lat with assigned city_id

@@ -1,0 +1,94 @@
+# https://docs-preview.dagster.io/guides/deploy/dagster-yaml
+
+# instance_class: dagster._core.instance.DagsterInstance
+
+local_artifact_storage:
+  module: dagster.core.storage.root
+  class: LocalArtifactStorage
+  config:
+    base_dir: storage/artifacts
+
+compute_logs:
+  module: dagster.core.storage.local_compute_log_manager
+  class: LocalComputeLogManager
+  config:
+    base_dir: storage/compute_logs
+
+# storage:
+#   sqlite:
+#     base_dir: storage
+
+run_storage:
+  module: dagster.core.storage.runs
+  class: SqliteRunStorage
+  config:
+    base_dir: storage/history
+
+event_log_storage:
+  module: dagster.core.storage.event_log
+  class: SqliteEventLogStorage
+  config:
+    base_dir: storage/history
+
+schedule_storage:
+  module: dagster.core.storage.schedules
+  class: SqliteScheduleStorage
+  config:
+    base_dir: storage/schedules
+
+scheduler:
+  module: dagster.core.scheduler
+  class: DagsterDaemonScheduler
+
+run_coordinator:
+  module: dagster.core.run_coordinator
+  class: DefaultRunCoordinator
+
+run_launcher:
+  module: dagster.core.launcher
+  class: DefaultRunLauncher
+
+telemetry:
+  enabled: false
+
+run_monitoring:
+  enabled: true
+  poll_interval_seconds: 60
+
+
+# Description: Run retries are enabled, but the configured event log storage does not support them. Consider switching to Postgres or Mysql.
+# run_retries:
+#   enabled: true
+#   max_retries: 3
+#   retry_on_asset_or_op_failure: true
+
+code_servers:
+  local_startup_timeout: 360
+
+retention:
+  schedule:
+    purge_after_days: 90 # sets retention policy for schedule ticks of all types
+  sensor:
+    purge_after_days:
+      skipped: 7
+      failure: 30
+      success: -1 # keep success ticks indefinitely
+
+sensors:
+  use_threads: true
+  num_workers: 8
+
+schedules:
+  use_threads: true
+  num_workers: 8
+
+auto_materialize:
+  enabled: true
+  minimum_interval_seconds: 3600
+  run_tags:
+    key: 'value'
+  respect_materialization_data_versions: true
+  max_tick_retries: 3
+  use_sensors: false
+  use_threads: false
+  num_workers: 4

@@ -171,3 +171,14 @@ cython_debug/
 .pypirc
 
 **.csv
+
+# temp folder dagster
+tmp*/
+
+# ignore storage
+storage/
+
+# ignore telemetry, .nux, .logs_queue
+.telemetry/
+.nux/
+.logs_queue/
