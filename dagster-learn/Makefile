@@ -5,7 +5,9 @@
 export DAGSTER_HOME := $(abspath $(shell pwd))
 
 STORAGE_DIR := $(DAGSTER_HOME)/storage
-# STORAGE_DIR=$(shell dirname $(data))
+# export STORAGE_DIR := $(dir $(DAGSTER_HOME))storage
+
+# Export the env to use in dagster.yaml file
 export SQLITE_STORAGE_BASE_DIR := $(STORAGE_DIR)
 export LOCAL_ARTIFACT_STORAGE := $(STORAGE_DIR)/artifacts
 export COMPUTE_LOGS := $(STORAGE_DIR)/compute_logs
@@ -24,6 +26,7 @@ init:
 	fi
 
 	pip install -e ".[dev]"
+
 run:
 	@echo "Setting DAGSTER_HOME to: $(DAGSTER_HOME)"
 	dagster dev

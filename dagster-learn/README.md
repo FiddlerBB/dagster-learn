@@ -73,8 +73,9 @@ Create a key with `API_KEY=<your API key from Open Weather>`
 Ref: https://openweathermap.org/
 
 
-
 ## Run Dagster locally and keep storage persist
 Follow the dagster.yaml file, the storage will be specify in there
 
 https://docs.dagster.io/guides/running-dagster-locally
+
+The base_dir are exported when running `make run`
