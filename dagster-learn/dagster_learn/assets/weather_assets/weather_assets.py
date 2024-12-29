@@ -117,7 +117,6 @@ def get_popullation(context: AssetExecutionContext) -> Output:
         city_name = row["city"]
 
         metrics = get_pollution_data(lat=row["latitude"], lon=row["longitude"])
-        print(metrics)
         metrics["city_id"] = row["city_id"]
         df = pd.json_normalize(
             metrics, "list", [["coord", "lon"], ["coord", "lat"], "city_id"]

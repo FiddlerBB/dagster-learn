@@ -46,6 +46,33 @@ The easiest way to deploy your Dagster project is to use Dagster Cloud.
 
 Check out the [Dagster Cloud Documentation](https://docs.dagster.cloud) to learn more.
 
+# NOTE
+Some note for developing purpose
+
+## Init project 
+First we need to install dagster via pip
+
+```bash
+pip install dagster
+```
+
+To init project put down command
+```bash
+dagster project scaffold --name <my-dagster-project>
+```
+
+Modify the requirements and run
+
+```bash
+make init
+```
+
+After installing the reqs, create `.env` file, this file should be put where the project will be run
+Ex: `/dagster-learn/.env`
+Create a key with `API_KEY=<your API key from Open Weather>`
+Ref: https://openweathermap.org/
+
+
 
 ## Run Dagster locally and keep storage persist
 Follow the dagster.yaml file, the storage will be specify in there
